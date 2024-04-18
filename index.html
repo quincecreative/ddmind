@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- lootie -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.6.4/lottie_svg.min.js"></script>
+    <!-- font awesome -->
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"
+        type='text/css'>
+
+    <title>DDMIND|DDMIND</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+
+    <div class="main-container">
+        <div id="loadingScreen">
+            <div id="lottieAnim"></div>
+        </div>
+        <div id="logo"></div>
+        <div id="muteBtn">
+            <i class="fa-solid fa-volume-xmark"></i>
+            <!-- <i id="unmuteVid" class='fas fa-volume-mute' style='font-size:48px;color:red'></i> -->
+        </div>
+        <div id="video-background">
+            <video id="video01" class="videos" autoplay muted playsinline>
+                <source type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"'>
+                </source>
+            </video>
+
+        </div>
+        <div class="form">
+            <!-- <a href="https://platform.ddmind.ai/" target="_blank" aria-disabled="false"><span>Login</span></a> -->
+            <a href="https://platform.ddmind.ai/" target="_blank">
+                <div class="logInBtn">Login</div>
+            </a>
+
+            <form action="" class="joinWaitingListForm">
+                <label for="email">Enter your email here*</label>
+                <input type="email" id="email" name="email">
+                <button type="submit">Join the waiting list</button>
+            </form>
+
+
+        </div>
+    </div>
+
+    <script>
+
+        let svgContainer = document.querySelector('#lottieAnim');
+        let animItem = bodymovin.loadAnimation({
+            wrapper: svgContainer,
+            animType: 'svg',
+            loop: true,
+            path: "ddimind.json"
+        });
+
+        video01.src = "Full video (with Loop)25mb.mp4"
+
+        video01.play();
+        let startInterval = setInterval(() => {
+            if (video01.currentTime > 0) {
+                clearInterval(startInterval);
+                video01.pause();
+            }
+        }, 100);
+
+        setTimeout(() => {
+            loadingScreen.style.display = "none"
+            video01.play();
+            // video01.muted = !video01.muted;
+        }, 5000);
+
+        let videoInterval = setInterval(() => {
+            console.log(video01.currentTime)
+            if (video01.currentTime > 97.6) {
+                video01.currentTime = 87.5
+            }
+        }, 100);
+
+        muteBtn.style.background = `url('mute.png')`
+        muteBtn.style.backgroundSize = 'cover';
+        muteBtn.style.backgroundPosition = 'center';
+        muteBtn.style.opacity = "0.2"
+
+        function toggleMute() {
+            if (video01.muted) {
+                video01.muted = false;
+                muteBtn.style.opacity = "1"
+            } else {
+                video01.muted = true;
+                muteBtn.style.opacity = "0.2"
+            }
+        }
+
+        muteBtn.onclick = () => {
+            toggleMute()
+        }
+
+    </script>
+
+</body>
+
+</html>
