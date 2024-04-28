@@ -26,7 +26,12 @@
             <!-- <i id="unmuteVid" class='fas fa-volume-mute' style='font-size:48px;color:red'></i> -->
         </div>
         <div id="video-background">
-            <video id="video01" class="videos" autoplay muted playsinline>
+            <video id="video01" class="videos01" autoplay muted playsinline>
+                <source type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"'>
+                </source>
+            </video>
+
+            <video id="video02" class="videos02" loop autoplay muted playsinline>
                 <source type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"'>
                 </source>
             </video>
@@ -58,26 +63,42 @@
             path: "ddimind.json"
         });
 
-        video01.src = "Full video (with Loop)25mb.mp4"
+        if (screen.width > screen.height) {
+            video01.src = "Full video (with Loop)25mb.mp4"
+        } else {
+            video01.src = "Mobile Version (with Loop)25mb.mp4"
+        }
+        if (screen.width > screen.height) {
+            video02.src = "End Loop 5mb.mp4"
+        } else {
+            video02.src = "Mobile Version End Loop 5mb.mp4"
+        }
 
         video01.play();
         let startInterval = setInterval(() => {
             if (video01.currentTime > 0) {
                 clearInterval(startInterval);
                 video01.pause();
+                video01.currentTime = 0
+                video02.pause();
+                video02.currentTime = 0
             }
         }, 100);
 
         setTimeout(() => {
             loadingScreen.style.display = "none"
+            // video01.currentTime = 95
             video01.play();
             // video01.muted = !video01.muted;
         }, 5000);
 
         let videoInterval = setInterval(() => {
-            console.log(video01.currentTime)
-            if (video01.currentTime > 97.6) {
-                video01.currentTime = 87.5
+            // console.log(video01.currentTime, video02.currentTime)
+            if (video01.currentTime > 97.7) {
+                // video01.currentTime = 87.5
+                video02.play()
+                video01.style.opacity = "0"
+                video01.pause()
             }
         }, 100);
 
